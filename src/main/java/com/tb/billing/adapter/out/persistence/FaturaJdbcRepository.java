@@ -2,6 +2,8 @@ package com.tb.billing.adapter.out.persistence;
 
 import com.tb.billing.domain.model.Fatura;
 import java.sql.Types;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.UUID;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,7 +29,7 @@ public class FaturaJdbcRepository {
             statement.setString(3, fatura.clienteId().valor());
             statement.setBigDecimal(4, fatura.valor());
             statement.setString(5, fatura.status().name());
-            statement.setObject(6, fatura.dataProcessamento());
+            statement.setObject(6, OffsetDateTime.ofInstant(fatura.dataProcessamento(), ZoneOffset.UTC));
             return statement;
         });
     }
